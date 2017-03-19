@@ -20,7 +20,7 @@
                         name="searchType"
                         th:id="${column.key}"
                         th:value="${column.key}"
-                        th:checked="${column.key == 'all'}"/>
+                        th:checked="${column.key == searchTypeSelected}"/>
                 <label th:for="${column.key}" th:text="${column.value}"></label>
             </span>
 
@@ -28,7 +28,7 @@
 
         <p>
             <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
+            <input type="text" name="searchTerm" id="searchTerm" th:value="${searchTermSelected}" />
         </p>
 
         <input type="submit" value="Search" />
@@ -43,7 +43,7 @@
             <table class="job-listing" th:each="job : ${jobs}">
                 <tr th:each="field : ${job}">
                     <td th:text="${#strings.capitalizeWords(field.key)}"></td>
-                    <td th:text="${field.value}"></td>
+                    <td><a th:href="@{/list/jobs(column=${field.key},value=${field.value})}" th:text="${field.value}"></a></td>
                 </tr>
             </table>
         </div>
